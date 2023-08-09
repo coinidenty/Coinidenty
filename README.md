@@ -1,5 +1,5 @@
-# CoinHippo
-[https://coinhippo.io](https://coinhippo.io)
+# CoinIdenty
+[https://coinidenty.com](https://coinidenty.com)
 
 ### Prerequisites
 node >= 16.0.0
