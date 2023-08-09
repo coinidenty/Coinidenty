@@ -1,21 +1,21 @@
 {
-  "name": "coinhippo-ui",
+  "name": "coinidenty",
   "version": "0.0.1",
-  "description": "CoinHippo UI",
+  "description": "CoinIdenty",
   "scripts": {
     "dev": "next dev",
     "build": "next build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CoinHippo-Labs/coinhippo-ui.git"
+    "url": "git+https://github.com/COSVM-NETWORK/coinidenty.com.git"
   },
-  "author": "CoinHippo",
+  "author": "CoinIdenty",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/CoinHippo-Labs/coinhippo-ui/issues"
+    "url": "https://github.com/COSVM-NETWORK/coinidenty.com/issues"
   },
-  "homepage": "https://github.com/CoinHippo-Labs/coinhippo-ui#readme",
+  "homepage": "https://github.com/COSVM-NETWORK/coinidenty.com#readme",
   "dependencies": {
     "@0xsquid/widget": "^1.5.13",
     "@material-tailwind/react": "^2.0.8",
