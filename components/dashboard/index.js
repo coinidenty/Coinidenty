@@ -19,6 +19,7 @@ import { getGlobal, getSimplePrice, getTokensMarkets } from '../../lib/api/coing
 import { getFearAndGreed } from '../../lib/api'
 import { split } from '../../lib/utils'
 import { GLOBAL_DATA } from '../../reducers/types'
+import { getTokenData } from '../../lib/api/cvmtoken'
 
 export default () => {
   const dispatch = useDispatch()
@@ -34,7 +35,7 @@ export default () => {
       id: _.last(split(path, 'normal', '/')),
     }
   })
-
+  const [cvm,setCvm]=useState(null)
   const [bitcoin, setBitcoin] = useState(null)
   const [fearAndGreed, setFearAndGreed] = useState(null)
   const [tokens, setTokens] = useState(null)
@@ -45,8 +46,15 @@ export default () => {
       const getData = async () => {
         if (!widget) {
           const { bitcoin } = { ...await getSimplePrice({ ids: 'bitcoin', vs_currencies: 'usd', include_market_cap: true, include_24hr_change: true }) }
+          console.log({bitcoin})
+          const cvmData=await getTokenData({ asset:"cvm"})
+          console.log('cvm Data: ',cvmData)
+          
           if (bitcoin) {
             setBitcoin(bitcoin)
+          }
+          if(cvmData){
+            setCvm(cvmData)
           }
         }
       }
@@ -119,14 +127,14 @@ export default () => {
           </span>
         </div>
       )}
-      {!widget && <Global bitcoin={bitcoin} />}
+      {!widget && <Global bitcoin={bitcoin} cvm={cvm}/>}
       {(!widget || ['price-marquee', 'fear-and-greed', 'dominance', 'top-movers', 'trending'].includes(widget)) && (
         <div className={`w-full grid grid-cols-1 ${widget !== 'price-marquee' ? 'sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4' : ''} gap-4 lg:gap-2 xl:gap-4 my-4 lg:my-2 xl:my-4`}>
           {widget === 'price-marquee' && <MargueeTokens data={tokens} />}
           {(!widget || widget === 'fear-and-greed') && <FearAndGreed data={fearAndGreed} />}
           {(!widget || widget === 'dominance') && <Dominance />}
           {(!widget || widget === 'top-movers') && <TopMovers />}
-          {(!widget || widget === 'trending') && <Trending />}
+          {(!widget || widget === 'trending') && <Trending />} 
         </div>
       )}
       {!widget && (
