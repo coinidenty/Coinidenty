@@ -23,7 +23,9 @@ export default ({ data }) => {
       {({ index }) => (
         <>
           {[data[index % data.length]].map(d => {
-            const { id, image, name, symbol, current_price, price_change_percentage_24h, market_cap_rank } = { ...d }
+            // const { id, image, name, symbol, current_price, price_change_percentage_24h, market_cap_rank } = { ...d }
+            const { id, name,image, symbol, large, current_price, price_change_percentage_24h, market_cap_rank, market_cap } = { ...d }
+
             return (
               <Link
                 key={index}
@@ -49,11 +51,12 @@ export default ({ data }) => {
                     format="0,0.00000000"
                     prefix="$"
                     noTooltip={true}
-                    className={`${price_change_percentage_24h < 0 ? 'text-red-500 dark:text-red-400' : price_change_percentage_24h > 0 ? 'text-green-500 dark:text-green-400' : 'text-slate-500 dark:text-slate-400'} text-xs font-semibold`}
+                    // className={`${price_change_percentage_24h < 0 ? 'text-red-500 dark:text-red-400' : price_change_percentage_24h > 0 ? 'text-green-500 dark:text-green-400' : 'text-slate-500 dark:text-slate-400'} text-xs font-semibold`}
+                    className={'text-green-500 dark:text-green-400 text-xs font-semibold'}
                   />
                 </div>
                 <div className={`w-full flex items-center justify-between text-2xs space-x-2 ${index && index % data.length === 0 ? 'pl-4 md:pl-8 pr-2 md:pr-3' : 'px-2 md:px-3'}`}>
-                  <div className="flex items-center space-x-1">
+                  {/* <div className="flex items-center space-x-1">
                     <NumberDisplay
                       value={market_cap_rank}
                       format="0,0"
@@ -63,7 +66,7 @@ export default ({ data }) => {
                     <span className="text-slate-600 dark:text-slate-400">
                       {name}
                     </span>
-                  </div>
+                  </div> */}
                   <div className={`flex items-center ${price_change_percentage_24h < 0 ? 'text-red-500 dark:text-red-400' : price_change_percentage_24h > 0 ? 'text-green-500 dark:text-green-400' : 'text-slate-500 dark:text-slate-400'} space-x-0.5`}>
                     <NumberDisplay
                       value={price_change_percentage_24h}
