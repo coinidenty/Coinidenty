@@ -8,10 +8,11 @@ import { FaBitcoin } from 'react-icons/fa'
 import Spinner from '../spinner'
 import NumberDisplay from '../number'
 import { toArray } from '../../lib/utils'
+import cvmlogo from '../../public/icons/cvm_icons_favicon-32x32.png';
 
-const METRICS = ['bitcoin', 'cryptos', 'exchanges', 'market_cap', 'volume']
+const METRICS = ['bitcoin','cvm', 'cryptos', 'exchanges', 'market_cap', 'volume']
 
-export default ({ bitcoin }) => {
+export default ({ bitcoin, cvm }) => {
   const { cryptos, _global } = useSelector(state => ({ cryptos: state.cryptos, _global: state.global }), shallowEqual)
   const { cryptos_data } = { ...cryptos }
   const { global_data } = { ..._global }
@@ -46,6 +47,7 @@ export default ({ bitcoin }) => {
         url = '/token/bitcoin'
         loading = !bitcoin
         change = bitcoin?.usd_24h_change
+        // console.log('usd_24h_change bitcoin: ',change)
         textColor = change < 0 ? 'text-red-500 dark:text-red-400' : change > 0 ? 'text-green-500 dark:text-green-400' : 'text-slate-500 dark:text-slate-400'
         component = (
           <div className={`flex items-center ${textColor} space-x-1`}>
@@ -60,6 +62,33 @@ export default ({ bitcoin }) => {
           </div>
         )
         break
+        case 'cvm':
+          if(cvm){
+            title = (
+              <div className="flex items-center space-x-2">
+                {<img src={cvmlogo.src} alt="CVM Icon" width="24" height="24" /> }
+                <span>CVM</span>
+              </div>
+            
+            )
+            url = '/token/cvm'
+            console.log('cvm full:',cvm);
+            loading = !cvm
+            textColor = 'text-green-500 dark:text-green-400'
+            component = (
+              <div className={`flex items-center ${textColor} space-x-1`}>
+                {cvm &&cvm.length > 0 && (<NumberDisplay
+                  value={cvm[0].price || 0.1}
+                  format="0,0"
+                  prefix="$"
+                  noTooltip={true}
+                  className={`${valueClassName} ${textColor}`}
+                />)}
+                {change !== 0 && (change < 0 ? <FiArrowDown size={16} /> : <FiArrowUp size={16} />)}
+              </div>
+            )
+            break
+            }
       case 'cryptos':
         title = 'Cryptos'
         url = '/tokens'
@@ -162,7 +191,7 @@ export default ({ bitcoin }) => {
   }
 
   return !widget && (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
       {METRICS.map(m => render(m))}
     </div>
   )
