@@ -98,21 +98,26 @@ export default ({ children }) => {
     [widget],
   )
 
-  // trending
-  useEffect(
-    () => {
-      const getData = async () => {
-        const response = await getTrendingSearch()
-        const { coins } = { ...response }
-        dispatch({ type: TRENDING_DATA, value: toArray(coins || trending_data) })
-      }
+  // // trending
+  // useEffect(
+  //   () => {
+  //     const getData = async () => {
+  //       const response = await getTrendingSearch()
+  //       const { coins } = { ...response }
+  //       if (!_.isEqual(coins, trending_data)) {
+  //         console.log("Data is different, dispatching update");
+  //         dispatch({ type: TRENDING_DATA, value: toArray(coins || trending_data) });
+  //       } else {
+  //         console.log("Data is the same, skipping update");
+  //       }
+  //     }
 
-      getData()
-      const interval = setInterval(() => getData(), 5 * 60 * 1000)
-      return () => clearInterval(interval)
-    },
-    [],
-  )
+  //     getData()
+  //     const interval = setInterval(() => getData(), 5 * 60 * 1000)
+  //     return () => clearInterval(interval)
+  //   },
+  //   [],
+  // )
 
   // rates
   useEffect(

@@ -71,8 +71,8 @@ export default ({ bitcoin, cvm }) => {
               </div>
             
             )
-            url = '/token/cvm'
-            console.log('cvm full:',cvm);
+            url = ''
+            // console.log('cvm full:',cvm);
             loading = !cvm
             textColor = 'text-green-500 dark:text-green-400'
             component = (

@@ -48,7 +48,7 @@ export default () => {
           const { bitcoin } = { ...await getSimplePrice({ ids: 'bitcoin', vs_currencies: 'usd', include_market_cap: true, include_24hr_change: true }) }
           console.log({bitcoin})
           const cvmData=await getTokenData({ asset:"cvm"})
-          console.log('cvm Data: ',cvmData)
+          // console.log('cvm Data: ',cvmData)
           
           if (bitcoin) {
             setBitcoin(bitcoin)
@@ -99,24 +99,24 @@ export default () => {
     [widget],
   )
 
-  useEffect(
-    () => {
-      const getData = async () => {
-        if (widget === 'price-marquee') {
-          const response = await getTokensMarkets({ vs_currency: 'usd', order: 'market_cap_desc', per_page: 10, page: 1, price_change_percentage: '24h', ...query })
-          const { error } = { ...response }
-          if (!error) {
-            setTokens(response)
-          }
-        }
-      }
+  // useEffect(
+  //   () => {
+  //     const getData = async () => {
+  //       if (widget === 'price-marquee') {
+  //         const response = await getTokensMarkets({ vs_currency: 'usd', order: 'market_cap_desc', per_page: 10, page: 1, price_change_percentage: '24h', ...query })
+  //         const { error } = { ...response }
+  //         if (!error) {
+  //           setTokens(response)
+  //         }
+  //       }
+  //     }
 
-      getData()
-      const interval = setInterval(() => getData(), 3 * 60 * 1000)
-      return () => clearInterval(interval)
-    },
-    [widget],
-  )
+  //     getData()
+  //     const interval = setInterval(() => getData(), 3 * 60 * 1000)
+  //     return () => clearInterval(interval)
+  //   },
+  //   [widget],
+  // )
 
   return (
     <div className="mx-3">
@@ -130,7 +130,8 @@ export default () => {
       {!widget && <Global bitcoin={bitcoin} cvm={cvm}/>}
       {(!widget || ['price-marquee', 'fear-and-greed', 'dominance', 'top-movers', 'trending'].includes(widget)) && (
         <div className={`w-full grid grid-cols-1 ${widget !== 'price-marquee' ? 'sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4' : ''} gap-4 lg:gap-2 xl:gap-4 my-4 lg:my-2 xl:my-4`}>
-          {widget === 'price-marquee' && <MargueeTokens data={tokens} />}
+          {widget === 'price-marquee' && <MargueeTokens />}
+          {/* {widget === 'price-marquee' && <MargueeTokens data={tokens} />} */}
           {(!widget || widget === 'fear-and-greed') && <FearAndGreed data={fearAndGreed} />}
           {(!widget || widget === 'dominance') && <Dominance />}
           {(!widget || widget === 'top-movers') && <TopMovers />}
