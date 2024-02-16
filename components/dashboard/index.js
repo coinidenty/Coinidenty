@@ -131,7 +131,7 @@ export default () => {
       {(!widget || ['price-marquee', 'fear-and-greed', 'dominance', 'top-movers', 'trending'].includes(widget)) && (
         <div className={`w-full grid grid-cols-1 ${widget !== 'price-marquee' ? 'sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4' : ''} gap-4 lg:gap-2 xl:gap-4 my-4 lg:my-2 xl:my-4`}>
           {widget === 'price-marquee' && <MargueeTokens />}
-          {/* {widget === 'price-marquee' && <MargueeTokens data={tokens} />} */}
+          {widget === 'price-marquee' && <MargueeTokens data={tokens} />}
           {(!widget || widget === 'fear-and-greed') && <FearAndGreed data={fearAndGreed} />}
           {(!widget || widget === 'dominance') && <Dominance />}
           {(!widget || widget === 'top-movers') && <TopMovers />}
